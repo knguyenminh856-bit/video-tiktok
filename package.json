@@ -1,0 +1,23 @@
+{
+  "name": "video-tiktok",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "hyperframes preview",
+    "preview": "hyperframes preview",
+    "lint": "hyperframes lint",
+    "check": "hyperframes check",
+    "snapshot": "hyperframes snapshot",
+    "render": "hyperframes render -o renders/output.mp4",
+    "render:draft": "hyperframes render --quality draft -o renders/draft.mp4",
+    "render:delivery": "hyperframes render --quality delivery -o renders/final.mp4",
+    "timeline": "hyperframes timeline --json",
+    "catalog": "hyperframes catalog",
+    "doctor": "hyperframes doctor",
+    "publish": "hyperframes publish"
+  },
+  "devDependencies": {
+    "hyperframes": "^0.9.80",
+    "sharp": "^0.35.5"
+  }
+}

@@ -1,0 +1,187 @@
+name: Render HyperFrames Video
+
+permissions:
+  contents: read
+
+concurrency:
+  group: render-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HYPERFRAMES_NO_TELEMETRY: "1"
+
+on:
+  workflow_dispatch:
+    inputs:
+      composition:
+        description: Entry HTML composition file
+        required: false
+        default: index.html
+        type: string
+      quality:
+        description: Render quality preset
+        required: false
+        default: delivery
+        type: choice
+        options:
+          - delivery
+          - looks
+          - draft
+      fps:
+        description: Frame rate (FPS)
+        required: false
+        default: "30"
+        type: choice
+        options:
+          - "30"
+          - "60"
+          - "24"
+      format:
+        description: Output format
+        required: false
+        default: mp4
+        type: choice
+        options:
+          - mp4
+          - webm
+          - gif
+      output_name:
+        description: Output file basename (without extension)
+        required: false
+        default: tiktok-demo
+        type: string
+      variables:
+        description: 'Optional JSON variables override (e.g. {"headline":"Tiêu đề mới"})'
+        required: false
+        default: ""
+        type: string
+      run_check:
+        description: Run lint & full composition check before rendering
+        required: false
+        default: true
+        type: boolean
+  push:
+    branches:
+      - main
+    paths:
+      - index.html
+      - compositions/**
+      - assets/**
+      - hyperframes.json
+      - .github/workflows/render.yml
+
+jobs:
+  render:
+    name: Render video on Linux runner
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install FFmpeg and fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ffmpeg \
+            fonts-liberation \
+            fonts-noto-core \
+            fonts-noto-color-emoji
+          sudo fc-cache -f
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Cache HyperFrames browser and font cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/hyperframes
+          key: hyperframes-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            hyperframes-cache-${{ runner.os }}-
+
+      - name: Ensure pinned Chromium browser
+        run: npx hyperframes browser ensure
+
+      - name: Check environment with doctor
+        run: npx hyperframes doctor || true
+
+      - name: Validate composition (lint + check)
+        if: ${{ github.event_name == 'push' || inputs.run_check }}
+        run: |
+          npx hyperframes lint
+          npx hyperframes check --json
+
+      - name: Capture preview snapshots
+        run: npx hyperframes snapshot --at 0,3,6 || true
+
+      - name: Render video
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_COMP: ${{ inputs.composition }}
+          INPUT_QUALITY: ${{ inputs.quality }}
+          INPUT_FPS: ${{ inputs.fps }}
+          INPUT_FORMAT: ${{ inputs.format }}
+          INPUT_OUTPUT_NAME: ${{ inputs.output_name }}
+          INPUT_VARIABLES: ${{ inputs.variables }}
+        run: |
+          set -euo pipefail
+          COMP="${INPUT_COMP:-index.html}"
+          if [ "$EVENT_NAME" = "push" ]; then
+            QUALITY="${INPUT_QUALITY:-looks}"
+          else
+            QUALITY="${INPUT_QUALITY:-delivery}"
+          fi
+          FPS="${INPUT_FPS:-30}"
+          FORMAT="${INPUT_FORMAT:-mp4}"
+          OUT_NAME="${INPUT_OUTPUT_NAME:-tiktok-demo}"
+          OUT_PATH="renders/${OUT_NAME}.${FORMAT}"
+
+          mkdir -p renders
+
+          ARGS=(-c "$COMP" --quality "$QUALITY" --fps "$FPS" --format "$FORMAT" -o "$OUT_PATH")
+          if [ -n "$INPUT_VARIABLES" ]; then
+            ARGS+=(--variables "$INPUT_VARIABLES")
+          fi
+
+          echo "Running: npx hyperframes render ${ARGS[*]}"
+          npx hyperframes render "${ARGS[@]}"
+
+          {
+            echo "## HyperFrames Cloud Render"
+            echo ""
+            echo "- **Composition:** \`$COMP\`"
+            echo "- **Output:** \`$OUT_PATH\`"
+            echo "- **Quality:** \`$QUALITY\` | **FPS:** \`$FPS\` | **Format:** \`$FORMAT\`"
+            echo "- **File size:** $(ls -lh "$OUT_PATH" | awk '{print $5}')"
+            if [ "$FORMAT" = "mp4" ] || [ "$FORMAT" = "webm" ]; then
+              echo ""
+              echo "### Stream Info (ffprobe)"
+              echo '```json'
+              ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,width,height,r_frame_rate,duration -of json "$OUT_PATH"
+              echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload rendered video artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.output_name || 'tiktok-demo' }}-${{ github.run_number }}
+          path: renders/*
+          retention-days: 14
+
+      - name: Upload preview snapshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshots-${{ github.run_number }}
+          path: .hyperframes/artifacts/snapshots/**
+          retention-days: 7
+          if-no-files-found: ignore

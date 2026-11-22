@@ -1,0 +1,432 @@
+<!doctype html>
+<html
+  lang="vi"
+  data-resolution="portrait"
+  data-composition-variables='[
+    {"id":"badge","type":"string","label":"Badge","default":"HYPERFRAMES × GITHUB CI"},
+    {"id":"headline","type":"string","label":"Headline","default":"Render Video Tự Động Trên Cloud"},
+    {"id":"subheadline","type":"string","label":"Subheadline","default":"Code nhẹ trên máy — GitHub Actions xuất MP4 1080×1920"},
+    {"id":"step1","type":"string","label":"Step 1","default":"01  Viết HTML & GSAP siêu nhẹ"},
+    {"id":"step2","type":"string","label":"Step 2","default":"02  Git Push lên GitHub Actions"},
+    {"id":"step3","type":"string","label":"Step 3","default":"03  Tải MP4 chuẩn TikTok 9:16"},
+    {"id":"cta","type":"string","label":"CTA","default":"Sẵn sàng chạy Demo!"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --ground: #070b14;
+        --surface: #0f172a;
+        --ink: #f8fafc;
+        --muted: #cbd5e1;
+        --cyan: #22d3ee;
+        --lime: #a3e635;
+        --font-display: "Inter", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--ground);
+        font-family: var(--font-display);
+        color: var(--ink);
+      }
+
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+      }
+
+      #bg-layer {
+        position: absolute;
+        inset: 0;
+        background-color: var(--ground);
+        background-image:
+          radial-gradient(circle at 28% 24%, rgba(34, 211, 238, 0.2) 0%, rgba(34, 211, 238, 0) 46%),
+          radial-gradient(circle at 74% 62%, rgba(163, 230, 53, 0.14) 0%, rgba(163, 230, 53, 0) 44%),
+          linear-gradient(rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+        background-size: 100% 100%, 100% 100%, 72px 72px, 72px 72px;
+      }
+
+      .clip {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+      }
+
+      /* Strictly inside TikTok safe zone: x = 120..760, y = 320..1120 */
+      .safe-stage {
+        position: absolute;
+        left: 120px;
+        top: 320px;
+        width: 640px;
+        height: 800px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .pill {
+        display: inline-block;
+        align-self: flex-start;
+        padding: 14px 24px;
+        border-radius: 9999px;
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: 0.04em;
+        line-height: 1.1;
+      }
+
+      #hook-badge {
+        background: var(--cyan);
+        color: #070b14;
+        margin-bottom: 36px;
+      }
+
+      #hook-headline {
+        font-size: 68px;
+        font-weight: 900;
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+        color: var(--ink);
+        margin-bottom: 28px;
+      }
+
+      #hook-accent-bar {
+        width: 240px;
+        height: 10px;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, var(--cyan), var(--lime));
+        margin-bottom: 30px;
+      }
+
+      #hook-sub {
+        font-size: 34px;
+        font-weight: 400;
+        line-height: 1.42;
+        color: var(--muted);
+      }
+
+      #steps-kicker {
+        font-size: 30px;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+        color: var(--cyan);
+        margin-bottom: 32px;
+      }
+
+      .step-card {
+        width: 640px;
+        padding: 28px 30px;
+        border-radius: 24px;
+        background: #0f172a;
+        border: 2px solid rgba(34, 211, 238, 0.35);
+        margin-bottom: 24px;
+      }
+
+      #step-card-3 {
+        border-color: rgba(163, 230, 53, 0.5);
+        margin-bottom: 0;
+      }
+
+      .step-text {
+        font-size: 34px;
+        font-weight: 700;
+        line-height: 1.35;
+        color: var(--ink);
+      }
+
+      #cta-panel {
+        width: 640px;
+        padding: 48px 38px;
+        border-radius: 32px;
+        background: #0f172a;
+        border: 2px solid rgba(163, 230, 53, 0.45);
+      }
+
+      #cta-pill {
+        background: var(--lime);
+        color: #070b14;
+        margin-bottom: 34px;
+      }
+
+      #cta-headline {
+        font-size: 68px;
+        font-weight: 900;
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+        color: var(--ink);
+        margin-bottom: 34px;
+      }
+
+      #cta-spec {
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1.3;
+        color: var(--cyan);
+      }
+
+      #progress-box {
+        position: absolute;
+        left: 120px;
+        top: 1150px;
+        width: 640px;
+        height: 12px;
+        border-radius: 9999px;
+        background: rgba(148, 163, 184, 0.25);
+        overflow: hidden;
+      }
+
+      #progress-fill {
+        width: 640px;
+        height: 12px;
+        border-radius: 9999px;
+        background: linear-gradient(90deg, var(--cyan), var(--lime));
+      }
+    </style>
+
+    <script>
+      window.__tailwindReady = new Promise(function (resolve) {
+        var loaded = document.readyState === "complete";
+        var resolved = false;
+        var observer;
+        function readTailwindCss() {
+          var styles = document.querySelectorAll("style");
+          for (var i = styles.length - 1; i >= 0; i--) {
+            var text = styles[i].textContent || "";
+            if (text.indexOf("tailwindcss v") !== -1) return text;
+          }
+          return "";
+        }
+        function finish() {
+          if (resolved || !loaded || !readTailwindCss()) return;
+          resolved = true;
+          if (observer) observer.disconnect();
+          resolve(true);
+        }
+        observer = new MutationObserver(finish);
+        observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          characterData: true,
+        });
+        if (loaded) {
+          finish();
+        } else {
+          window.addEventListener(
+            "load",
+            function () {
+              loaded = true;
+              finish();
+            },
+            { once: true },
+          );
+        }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"
+      integrity="sha384-v5YF9xS+gLRWdvrQ0u/WRbCkjSIH0NjHIPe8tBL1ZRrmI7PiSH6LLdzs0aAIMCuh"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="8"
+      data-fps="30"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div id="bg-layer" data-layout-ignore></div>
+
+      <!-- Beat 1: Hook (0s - 2.4s) -->
+      <section
+        id="scene-hook"
+        class="clip"
+        data-start="0"
+        data-duration="2.4"
+        data-track-index="0"
+      >
+        <div id="hook-inner" class="safe-stage">
+          <div id="hook-badge" class="pill" data-var-text="badge">HYPERFRAMES × GITHUB CI</div>
+          <h1 id="hook-headline" data-var-text="headline">Render Video Tự Động Trên Cloud</h1>
+          <div id="hook-accent-bar"></div>
+          <p id="hook-sub" data-var-text="subheadline">
+            Code nhẹ trên máy — GitHub Actions xuất MP4 1080×1920
+          </p>
+        </div>
+      </section>
+
+      <!-- Beat 2: 3-Step Workflow (2.4s - 5.2s) -->
+      <section
+        id="scene-steps"
+        class="clip"
+        data-start="2.4"
+        data-duration="2.8"
+        data-track-index="0"
+      >
+        <div id="steps-inner" class="safe-stage">
+          <div id="steps-kicker">QUY TRÌNH 3 BƯỚC</div>
+          <div id="step-card-1" class="step-card">
+            <p class="step-text" data-var-text="step1">01  Viết HTML &amp; GSAP siêu nhẹ</p>
+          </div>
+          <div id="step-card-2" class="step-card">
+            <p class="step-text" data-var-text="step2">02  Git Push lên GitHub Actions</p>
+          </div>
+          <div id="step-card-3" class="step-card">
+            <p class="step-text" data-var-text="step3">03  Tải MP4 chuẩn TikTok 9:16</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Beat 3: Ready CTA (5.2s - 8.0s) -->
+      <section
+        id="scene-cta"
+        class="clip"
+        data-start="5.2"
+        data-duration="2.8"
+        data-track-index="0"
+      >
+        <div id="cta-inner" class="safe-stage">
+          <div id="cta-panel">
+            <div id="cta-pill" class="pill">9:16 • 1080×1920</div>
+            <h2 id="cta-headline" data-var-text="cta">Sẵn sàng chạy Demo!</h2>
+            <p id="cta-spec">H.264 MP4 • 30 FPS</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Progress bar across all 8 seconds -->
+      <div
+        id="progress-track"
+        class="clip"
+        data-start="0"
+        data-duration="8"
+        data-track-index="1"
+        data-layout-ignore
+      >
+        <div id="progress-box">
+          <div id="progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // Beat 1: Frame 0 starts visible (no blank frame at t=0), accent & copy animate smoothly
+      tl.fromTo(
+        "#hook-badge",
+        { scale: 0.96, opacity: 1 },
+        { scale: 1, opacity: 1, duration: 0.35, ease: "power3.out" },
+        0,
+      );
+      tl.fromTo(
+        "#hook-accent-bar",
+        { scaleX: 0.25, transformOrigin: "left center" },
+        { scaleX: 1, duration: 0.55, ease: "power4.out", transformOrigin: "left center" },
+        0,
+      );
+      tl.fromTo(
+        "#hook-sub",
+        { y: 12, opacity: 0.85 },
+        { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" },
+        0,
+      );
+      tl.fromTo(
+        "#hook-inner",
+        { y: 0, opacity: 1 },
+        { y: -24, opacity: 0, duration: 0.3, ease: "power2.in" },
+        2.05,
+      );
+
+      // Beat 2: Workflow cards stagger in and exit cleanly
+      tl.fromTo(
+        "#steps-inner",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.25, ease: "power3.out" },
+        2.4,
+      );
+      tl.fromTo(
+        "#step-card-1",
+        { x: -32, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.34, ease: "power3.out" },
+        2.45,
+      );
+      tl.fromTo(
+        "#step-card-2",
+        { x: -32, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.34, ease: "power3.out" },
+        2.7,
+      );
+      tl.fromTo(
+        "#step-card-3",
+        { x: -32, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.34, ease: "power3.out" },
+        2.95,
+      );
+      tl.fromTo(
+        "#steps-inner",
+        { y: 0, opacity: 1 },
+        { y: -24, opacity: 0, duration: 0.3, ease: "power2.in", immediateRender: false },
+        4.85,
+      );
+
+      // Beat 3: CTA panel lands and holds cleanly through 7.9s
+      tl.fromTo(
+        "#cta-inner",
+        { scale: 0.94, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.32, ease: "power3.out" },
+        5.2,
+      );
+      tl.fromTo(
+        "#cta-pill",
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.28, ease: "power3.out" },
+        5.25,
+      );
+      tl.fromTo(
+        "#cta-headline",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.32, ease: "power3.out" },
+        5.35,
+      );
+      tl.fromTo(
+        "#cta-spec",
+        { y: 16, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, ease: "power3.out" },
+        5.45,
+      );
+
+      // Continuous progress bar over 0..7.9s
+      tl.fromTo(
+        "#progress-fill",
+        { scaleX: 0.03, transformOrigin: "left center" },
+        { scaleX: 1, duration: 7.9, ease: "none", transformOrigin: "left center" },
+        0,
+      );
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>
