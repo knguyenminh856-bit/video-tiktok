@@ -1,7 +1,7 @@
 name: Render HyperFrames Video
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: render-${{ github.ref }}
@@ -48,7 +48,7 @@ on:
       output_name:
         description: Output file basename (without extension)
         required: false
-        default: tiktok-demo
+        default: neon-deal-tiktok
         type: string
       variables:
         description: 'Optional JSON variables override (e.g. {"headline":"Tiêu đề mới"})'
@@ -141,7 +141,7 @@ jobs:
           fi
           FPS="${INPUT_FPS:-30}"
           FORMAT="${INPUT_FORMAT:-mp4}"
-          OUT_NAME="${INPUT_OUTPUT_NAME:-tiktok-demo}"
+          OUT_NAME="${INPUT_OUTPUT_NAME:-neon-deal-tiktok}"
           OUT_PATH="renders/${OUT_NAME}.${FORMAT}"
 
           mkdir -p renders
@@ -170,10 +170,34 @@ jobs:
             fi
           } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: Publish direct MP4 download (GitHub Release)
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_OUTPUT_NAME: ${{ inputs.output_name }}
+          INPUT_FORMAT: ${{ inputs.format }}
+        run: |
+          set -euo pipefail
+          OUT_NAME="${INPUT_OUTPUT_NAME:-neon-deal-tiktok}"
+          FORMAT="${INPUT_FORMAT:-mp4}"
+          FILE="renders/${OUT_NAME}.${FORMAT}"
+          TAG="latest-render"
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$FILE" --clobber
+          else
+            gh release create "$TAG" "$FILE" \
+              --title "Latest Rendered Video" \
+              --notes "Auto-rendered by HyperFrames GitHub Actions."
+          fi
+
+          DL_URL="https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/${OUT_NAME}.${FORMAT}"
+          echo "- **Direct Download:** [$OUT_NAME.$FORMAT]($DL_URL)" >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload rendered video artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.output_name || 'tiktok-demo' }}-${{ github.run_number }}
+          name: ${{ inputs.output_name || 'neon-deal-tiktok' }}-${{ github.run_number }}
           path: renders/*
           retention-days: 14
 

@@ -1,0 +1,134 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+      color: #09090b;
+    }
+
+    /* High-contrast Paper-Cream pattern interrupt */
+    #s3-bg {
+      position: absolute;
+      inset: 0;
+      background-color: #f5f3ee;
+      background-image:
+        radial-gradient(circle at 76% 24%, rgba(255, 59, 92, 0.12) 0%, rgba(255, 59, 92, 0) 44%),
+        linear-gradient(rgba(9, 9, 11, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(9, 9, 11, 0.05) 1px, transparent 1px);
+      background-size: 100% 100%, 64px 64px, 64px 64px;
+    }
+
+    #s3-stage {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #s3-icon-badge {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      background: #09090b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 36px;
+    }
+
+    #s3-kicker {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 36px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: #be123c;
+      margin-bottom: 24px;
+    }
+
+    #s3-headline {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 76px;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #09090b;
+      margin-bottom: 32px;
+    }
+
+    #s3-bar {
+      width: 360px;
+      height: 12px;
+      border-radius: 9999px;
+      background: #ff3b5c;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s3-verdict" data-width="1080" data-height="1920">
+    <div id="s3-bg" data-layout-ignore></div>
+
+    <div id="s3-stage">
+      <div id="s3-icon-badge">
+        <svg width="52" height="52" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 3V21M5 7H19M7 7L4 14C4 15.6569 5.34315 17 7 17C8.65685 17 10 15.6569 10 14L7 7ZM17 7L14 14C14 15.6569 15.3431 17 17 17C18.6569 17 20 15.6569 20 14L17 7ZM8 21H16"
+            stroke="#D9F99D"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+
+      <div id="s3-kicker">NHƯNG KHOAN ĐÃ...</div>
+
+      <h2 id="s3-headline">Có thật sự<br />là món hời?</h2>
+
+      <div id="s3-bar" data-layout-ignore></div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo(
+      "#s3-icon-badge",
+      { scale: 0.78, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.35, ease: "back.out(1.4)" },
+      0,
+    );
+    tl.fromTo(
+      "#s3-kicker",
+      { y: 18, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.32, ease: "power4.out" },
+      0.08,
+    );
+    tl.fromTo(
+      "#s3-headline",
+      { y: 26, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.38, ease: "power4.out" },
+      0.16,
+    );
+    tl.fromTo(
+      "#s3-bar",
+      { scaleX: 0, transformOrigin: "left center" },
+      { scaleX: 1, duration: 0.42, ease: "expo.out", transformOrigin: "left center" },
+      0.28,
+    );
+
+    tl.fromTo(
+      "#s3-stage",
+      { y: 0, opacity: 1 },
+      { y: -32, opacity: 0, duration: 0.3, ease: "power3.in" },
+      2.65,
+    );
+
+    window.__timelines["s3-verdict"] = tl;
+  </script>
+</template>

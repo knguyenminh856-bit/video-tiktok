@@ -1,0 +1,48 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    #pb-box {
+      position: absolute;
+      left: 120px;
+      top: 1218px;
+      width: 640px;
+      height: 8px;
+      border-radius: 9999px;
+      background: rgba(161, 161, 170, 0.28);
+      overflow: hidden;
+    }
+
+    #pb-fill {
+      width: 640px;
+      height: 8px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #d9f99d, #a78bfa);
+    }
+  </style>
+
+  <div id="root" data-composition-id="progress-bar" data-width="1080" data-height="1920">
+    <div id="pb-box" data-layout-ignore>
+      <div id="pb-fill"></div>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    tl.fromTo(
+      "#pb-fill",
+      { scaleX: 0.02, transformOrigin: "left center" },
+      { scaleX: 1, duration: 29.8, ease: "none", transformOrigin: "left center" },
+      0,
+    );
+
+    window.__timelines["progress-bar"] = tl;
+  </script>
+</template>

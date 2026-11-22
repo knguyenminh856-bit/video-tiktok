@@ -1,0 +1,148 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+      color: #fafaf9;
+    }
+
+    #s1-bg {
+      position: absolute;
+      inset: 0;
+      background-color: #09090b;
+      background-image:
+        radial-gradient(circle at 36% 32%, rgba(217, 249, 157, 0.22) 0%, rgba(217, 249, 157, 0) 48%),
+        radial-gradient(circle at 75% 68%, rgba(167, 139, 250, 0.16) 0%, rgba(167, 139, 250, 0) 44%),
+        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 64px 64px, 64px 64px;
+    }
+
+    #s1-stage {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    #s1-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      align-self: flex-start;
+      padding: 16px 28px;
+      border-radius: 9999px;
+      background: #d9f99d;
+      color: #09090b;
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      margin-bottom: 36px;
+    }
+
+    #s1-headline {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 78px;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: #fafaf9;
+      margin-bottom: 30px;
+    }
+
+    .s1-volt {
+      color: #d9f99d;
+    }
+
+    #s1-accent {
+      width: 280px;
+      height: 10px;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #d9f99d, #a78bfa);
+      margin-bottom: 30px;
+    }
+
+    #s1-sub {
+      font-size: 36px;
+      font-weight: 600;
+      line-height: 1.38;
+      color: #d4d4d8;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s1-hook" data-width="1080" data-height="1920">
+    <div id="s1-bg" data-layout-ignore></div>
+
+    <div id="s1-stage">
+      <div id="s1-badge">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M13 2L4.5 13.5H11.5L10.5 22L19.5 10.5H12.5L13 2Z"
+            fill="#09090B"
+            stroke="#09090B"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>TIN ĐƯỢC KHÔNG?!</span>
+      </div>
+
+      <h1 id="s1-headline">
+        Dùng Neon<br />chỉ <span class="s1-volt">60K?!</span>
+      </h1>
+
+      <div id="s1-accent" data-layout-ignore></div>
+
+      <p id="s1-sub">Giá chưa tới 2 ly trà sữa</p>
+    </div>
+  </div>
+
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+
+    // Frame 0 starts bold & readable (never blank), with crisp energetic settle
+    tl.fromTo(
+      "#s1-badge",
+      { scale: 0.94, opacity: 1 },
+      { scale: 1, opacity: 1, duration: 0.4, ease: "expo.out" },
+      0,
+    );
+    tl.fromTo(
+      "#s1-headline",
+      { y: 12, opacity: 1 },
+      { y: 0, opacity: 1, duration: 0.45, ease: "expo.out" },
+      0,
+    );
+    tl.fromTo(
+      "#s1-accent",
+      { scaleX: 0.2, transformOrigin: "left center" },
+      { scaleX: 1, duration: 0.55, ease: "expo.out", transformOrigin: "left center" },
+      0,
+    );
+    tl.fromTo(
+      "#s1-sub",
+      { y: 14, opacity: 0.88 },
+      { y: 0, opacity: 1, duration: 0.45, ease: "expo.out" },
+      0,
+    );
+
+    // Snappy whip-blur exit before beat 2
+    tl.fromTo(
+      "#s1-stage",
+      { y: 0, opacity: 1, filter: "blur(0px)" },
+      { y: -40, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in", immediateRender: false },
+      3.05,
+    );
+
+    window.__timelines["s1-hook"] = tl;
+  </script>
+</template>
