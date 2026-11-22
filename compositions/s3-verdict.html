@@ -113,20 +113,20 @@
       "#s3-headline",
       { y: 26, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.38, ease: "power4.out" },
-      0.16,
+      1.65,
     );
     tl.fromTo(
       "#s3-bar",
       { scaleX: 0, transformOrigin: "left center" },
       { scaleX: 1, duration: 0.42, ease: "expo.out", transformOrigin: "left center" },
-      0.28,
+      1.82,
     );
 
     tl.fromTo(
       "#s3-stage",
       { y: 0, opacity: 1 },
       { y: -32, opacity: 0, duration: 0.3, ease: "power3.in" },
-      2.65,
+      4.25,
     );
 
     window.__timelines["s3-verdict"] = tl;

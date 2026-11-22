@@ -130,9 +130,9 @@
     );
     tl.fromTo(
       "#s1-sub",
-      { y: 14, opacity: 0.88 },
-      { y: 0, opacity: 1, duration: 0.45, ease: "expo.out" },
-      0,
+      { y: 18, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.4, ease: "power4.out" },
+      3.3,
     );
 
     // Snappy whip-blur exit before beat 2
@@ -140,7 +140,7 @@
       "#s1-stage",
       { y: 0, opacity: 1, filter: "blur(0px)" },
       { y: -40, opacity: 0, filter: "blur(10px)", duration: 0.3, ease: "power3.in", immediateRender: false },
-      3.05,
+      6.15,
     );
 
     window.__timelines["s1-hook"] = tl;
