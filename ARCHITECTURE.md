@@ -11,4 +11,5 @@
 | Warnings Scene | `compositions/s6-warnings.html` | `20.8–26.0s`: 3 nhược điểm minh bạch (acc phụ, bảo hành 2h đầu, chờ lâu) |
 | CTA Scene | `compositions/s7-cta.html` | `26.0–30.0s`: Chốt deal (`Cần deal ngon? IB mình ngay!`) & recap giá |
 | Progress Overlay | `compositions/progress-bar.html` | `0.0–30.0s`: Thanh tiến trình liên tục trong vùng an toàn TikTok |
+| Free SFX Assets | `assets/sfx/*.mp3` | 12 hiệu ứng âm thanh miễn phí từ thư viện HyperFrames, gắn 22 cue đồng bộ beat trên Lane 2 & 3 trong `index.html` |
 | Cloud Render CI | `.github/workflows/render.yml` | GitHub Actions (`ubuntu-latest`): `lint`/`check`, `render` (`neon-deal-tiktok.mp4`), `ffprobe`, Release direct download (`latest-render`) & artifact upload |
