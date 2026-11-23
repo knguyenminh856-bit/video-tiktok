@@ -13,4 +13,5 @@
 | Progress Overlay | `compositions/progress-bar.html` | `0.0–45.3s`: Thanh tiến trình liên tục trong vùng an toàn TikTok |
 | Voiceover Audio | `assets/voice/v1..v7.mp3` | 7 file giọng nam `vi-VN-NamMinhNeural` (`edge-tts` +12%, normalized `-16 LUFS`) trên Lane 4 |
 | Free SFX Assets | `assets/sfx/*.mp3` | 25 cue SFX ducked dưới giọng đọc trên Lane 2 & 3 |
-| Cloud Render CI | `.github/workflows/render.yml` | GitHub Actions (`ubuntu-latest`): `lint`/`check`, `render` (`neon-deal-tiktok.mp4`), Release download & artifact |
+| Video #2 Project | `videos/hydrogen-pro/index.html` | `39.7s` TikTok 9:16 (`1080x1920`, `30fps`): Google model mới, Pro `30K/3T` & `80K/năm` (`Neon • Argon • Hydrogen`), `Add Family 20K/người/năm` (chia 5 người) + 6 VO (`vi-VN-NamMinhNeural`) + 25 SFX |
+| Cloud Render CI | `.github/workflows/render.yml` | GitHub Actions (`ubuntu-latest`): auto-detect root (`.`) hoặc `videos/<slug>`, `lint`/`check`, `render`, upload chung lên Release `latest-render` |

@@ -13,6 +13,14 @@ env:
 on:
   workflow_dispatch:
     inputs:
+      project_dir:
+        description: Project directory (. for root Neon video, videos/hydrogen-pro for Hydrogen Pro video)
+        required: false
+        default: videos/hydrogen-pro
+        type: choice
+        options:
+          - videos/hydrogen-pro
+          - .
       composition:
         description: Entry HTML composition file
         required: false
@@ -46,9 +54,9 @@ on:
           - webm
           - gif
       output_name:
-        description: Output file basename (without extension)
+        description: Output file basename without extension (auto if blank)
         required: false
-        default: neon-deal-tiktok
+        default: ""
         type: string
       variables:
         description: 'Optional JSON variables override (e.g. {"headline":"Tiêu đề mới"})'
@@ -68,6 +76,7 @@ on:
       - compositions/**
       - assets/**
       - hyperframes.json
+      - videos/**
       - .github/workflows/render.yml
 
 jobs:
@@ -79,6 +88,40 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Detect target project and output name
+        id: target
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_DIR: ${{ inputs.project_dir }}
+          INPUT_OUT: ${{ inputs.output_name }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            PROJ_DIR="${INPUT_DIR:-videos/hydrogen-pro}"
+          else
+            CHANGED="$(git diff --name-only HEAD~1 HEAD 2>/dev/null || true)"
+            VID_DIR="$(echo "$CHANGED" | sed -n 's|^videos/\([^/]*\)/.*|videos/\1|p' | head -n 1)"
+            if [ -n "$VID_DIR" ] && [ -f "$VID_DIR/index.html" ]; then
+              PROJ_DIR="$VID_DIR"
+            else
+              PROJ_DIR="."
+            fi
+          fi
+
+          if [ -n "$INPUT_OUT" ]; then
+            OUT_NAME="$INPUT_OUT"
+          elif [ "$PROJ_DIR" = "." ]; then
+            OUT_NAME="neon-deal-tiktok"
+          else
+            OUT_NAME="$(basename "$PROJ_DIR")-tiktok"
+          fi
+
+          echo "project_dir=$PROJ_DIR" >> "$GITHUB_OUTPUT"
+          echo "output_name=$OUT_NAME" >> "$GITHUB_OUTPUT"
+          echo "Resolved project_dir=$PROJ_DIR, output_name=$OUT_NAME"
 
       - name: Setup Node.js 22
         uses: actions/setup-node@v4
@@ -115,21 +158,26 @@ jobs:
 
       - name: Validate composition (lint + check)
         if: ${{ github.event_name == 'push' || inputs.run_check }}
+        env:
+          PROJ_DIR: ${{ steps.target.outputs.project_dir }}
         run: |
-          npx hyperframes lint
-          npx hyperframes check --json
+          npx hyperframes lint "$PROJ_DIR"
+          npx hyperframes check "$PROJ_DIR" --json
 
       - name: Capture preview snapshots
-        run: npx hyperframes snapshot --at 0,3,6 || true
+        env:
+          PROJ_DIR: ${{ steps.target.outputs.project_dir }}
+        run: npx hyperframes snapshot "$PROJ_DIR" --at 0,3,6 || true
 
       - name: Render video
         env:
           EVENT_NAME: ${{ github.event_name }}
+          PROJ_DIR: ${{ steps.target.outputs.project_dir }}
+          OUT_NAME: ${{ steps.target.outputs.output_name }}
           INPUT_COMP: ${{ inputs.composition }}
           INPUT_QUALITY: ${{ inputs.quality }}
           INPUT_FPS: ${{ inputs.fps }}
           INPUT_FORMAT: ${{ inputs.format }}
-          INPUT_OUTPUT_NAME: ${{ inputs.output_name }}
           INPUT_VARIABLES: ${{ inputs.variables }}
         run: |
           set -euo pipefail
@@ -141,12 +189,11 @@ jobs:
           fi
           FPS="${INPUT_FPS:-30}"
           FORMAT="${INPUT_FORMAT:-mp4}"
-          OUT_NAME="${INPUT_OUTPUT_NAME:-neon-deal-tiktok}"
-          OUT_PATH="renders/${OUT_NAME}.${FORMAT}"
+          OUT_PATH="${GITHUB_WORKSPACE}/renders/${OUT_NAME}.${FORMAT}"
 
-          mkdir -p renders
+          mkdir -p "${GITHUB_WORKSPACE}/renders"
 
-          ARGS=(-c "$COMP" --quality "$QUALITY" --fps "$FPS" --format "$FORMAT" -o "$OUT_PATH")
+          ARGS=("$PROJ_DIR" -c "$COMP" --quality "$QUALITY" --fps "$FPS" --format "$FORMAT" -o "$OUT_PATH")
           if [ -n "$INPUT_VARIABLES" ]; then
             ARGS+=(--variables "$INPUT_VARIABLES")
           fi
@@ -157,8 +204,8 @@ jobs:
           {
             echo "## HyperFrames Cloud Render"
             echo ""
-            echo "- **Composition:** \`$COMP\`"
-            echo "- **Output:** \`$OUT_PATH\`"
+            echo "- **Project Dir:** \`$PROJ_DIR\` | **Composition:** \`$COMP\`"
+            echo "- **Output:** \`renders/${OUT_NAME}.${FORMAT}\`"
             echo "- **Quality:** \`$QUALITY\` | **FPS:** \`$FPS\` | **Format:** \`$FORMAT\`"
             echo "- **File size:** $(ls -lh "$OUT_PATH" | awk '{print $5}')"
             if [ "$FORMAT" = "mp4" ] || [ "$FORMAT" = "webm" ]; then
@@ -174,13 +221,12 @@ jobs:
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
-          INPUT_OUTPUT_NAME: ${{ inputs.output_name }}
+          OUT_NAME: ${{ steps.target.outputs.output_name }}
           INPUT_FORMAT: ${{ inputs.format }}
         run: |
           set -euo pipefail
-          OUT_NAME="${INPUT_OUTPUT_NAME:-neon-deal-tiktok}"
           FORMAT="${INPUT_FORMAT:-mp4}"
-          FILE="renders/${OUT_NAME}.${FORMAT}"
+          FILE="${GITHUB_WORKSPACE}/renders/${OUT_NAME}.${FORMAT}"
           TAG="latest-render"
 
           if gh release view "$TAG" >/dev/null 2>&1; then
@@ -197,7 +243,7 @@ jobs:
       - name: Upload rendered video artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.output_name || 'neon-deal-tiktok' }}-${{ github.run_number }}
+          name: ${{ steps.target.outputs.output_name }}-${{ github.run_number }}
           path: renders/*
           retention-days: 14
 
@@ -206,6 +252,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: snapshots-${{ github.run_number }}
-          path: .hyperframes/artifacts/snapshots/**
+          path: ${{ steps.target.outputs.project_dir }}/.hyperframes/artifacts/snapshots/**
           retention-days: 7
           if-no-files-found: ignore

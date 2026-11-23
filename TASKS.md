@@ -8,4 +8,6 @@
 | T12 | Live Studio preview | Done | Running at `http://localhost:3002/#project/video%20tiktok` (daemon PID 9300, HTTP 200) |
 | T13 | Push to GitHub & Cloud Render MP4 + Release download | Done | Run `44999606156` `success`; `neon-deal-tiktok.mp4` (`2,783,545 B`, 1080x1920 H.264 30fps 30s) |
 | T14 | Add 25 synchronized free SFX cues & re-render on CI | Done | Run `45000435958` `success`; `neon-deal-tiktok.mp4` (`3,138,158 B`, H.264 + AAC 48kHz, `-15.9 LUFS`, `-1 dBTP`, 0 clip) |
-| T15 | Add Vietnamese Neural voiceover (`vi-VN-NamMinhNeural`) & sync `45.3s` | Done | 7 VO MP3s + 25 SFX cues (`check` 0 errors / 0 warnings across all gates), pushed to `origin/main` |
+| T15 | Add Vietnamese Neural voiceover (`vi-VN-NamMinhNeural`) & sync `45.3s` | Done | Run `45001639446`; `neon-deal-tiktok.mp4` (`4,006,772 B`, `45.3s` H.264 + AAC `-16 LUFS`, `-2.1 dBTP`, 0 clip) |
+| T16 | Build Video #2 (`videos/hydrogen-pro/`, `39.7s`, 6 VO + 25 SFX) | Done | `lint` 0/0, `check --safe-zone tiktok` 0/0 across all gates, snapshots verified |
+| T17 | Multi-video CI (`.github/workflows/render.yml`) & render `hydrogen-pro-tiktok.mp4` | In Progress | Auto-detect `videos/*` on push / `project_dir` dispatch -> Release `latest-render` |

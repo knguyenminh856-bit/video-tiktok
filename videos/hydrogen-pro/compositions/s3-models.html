@@ -1,0 +1,268 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #09090b;
+      color: #fafaf9;
+      font-family: "Inter", "Montserrat", sans-serif;
+    }
+    .s3-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 460px 660px, rgba(168, 85, 247, 0.18), transparent 52%),
+        radial-gradient(circle at 300px 980px, rgba(56, 189, 248, 0.16), transparent 50%),
+        #09090b;
+    }
+    .s3-safe {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+    .s3-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .s3-kicker {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      color: #d9f99d;
+    }
+    .s3-h2 {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 48px;
+      font-weight: 900;
+      line-height: 1.12;
+      color: #fafaf9;
+    }
+    .s3-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .s3-card {
+      padding: 22px 26px;
+      border-radius: 24px;
+      background: rgba(24, 24, 27, 0.94);
+      border: 2px solid rgba(255, 255, 255, 0.14);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .s3-card-hydrogen {
+      background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(24, 24, 27, 0.96));
+      border: 2px solid #38bdf8;
+    }
+    .s3-icon {
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .s3-icon-neon {
+      background: rgba(217, 249, 157, 0.14);
+      border: 1.5px solid #d9f99d;
+    }
+    .s3-icon-argon {
+      background: rgba(192, 132, 252, 0.16);
+      border: 1.5px solid #c084fc;
+    }
+    .s3-icon-h2 {
+      background: rgba(56, 189, 248, 0.18);
+      border: 1.5px solid #38bdf8;
+    }
+    .s3-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .s3-name-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .s3-name {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: #fafaf9;
+    }
+    .s3-tag {
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #38bdf8;
+      color: #09090b;
+      font-size: 24px;
+      font-weight: 900;
+    }
+    .s3-desc {
+      font-size: 27px;
+      font-weight: 600;
+      color: #d4d4d8;
+    }
+    .s3-urgency {
+      padding: 22px 26px;
+      border-radius: 22px;
+      background: rgba(255, 59, 92, 0.16);
+      border: 2px solid #ff3b5c;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .s3-urg-left {
+      font-size: 30px;
+      font-weight: 800;
+      color: #ffe4e6;
+      line-height: 1.25;
+    }
+    .s3-urg-cta {
+      padding: 12px 20px;
+      border-radius: 14px;
+      background: #ff3b5c;
+      color: #fafaf9;
+      font-size: 26px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s3-models" data-width="1080" data-height="1920">
+    <div class="s3-bg" data-layout-ignore></div>
+    <div id="s3-stage" class="s3-safe">
+      <div id="s3-head" class="s3-header">
+        <div class="s3-kicker">TRÊN ANTIGRAVITY</div>
+        <h2 class="s3-h2">MỞ KHÓA FULL 3 MODEL</h2>
+      </div>
+
+      <div class="s3-list">
+        <div id="s3-m1" class="s3-card">
+          <div class="s3-icon s3-icon-neon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M13 2L5 13h6l-1 9 9-12h-6V2z" fill="#D9F99D" />
+            </svg>
+          </div>
+          <div class="s3-info">
+            <div class="s3-name-row">
+              <div class="s3-name">NEON</div>
+            </div>
+            <div class="s3-desc">Tốc độ phản hồi cực nhanh</div>
+          </div>
+        </div>
+
+        <div id="s3-m2" class="s3-card">
+          <div class="s3-icon s3-icon-argon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <polygon
+                points="12,2 20,7 20,17 12,22 4,17 4,7"
+                stroke="#C084FC"
+                stroke-width="2.4"
+                fill="rgba(192,132,252,0.22)"
+              />
+            </svg>
+          </div>
+          <div class="s3-info">
+            <div class="s3-name-row">
+              <div class="s3-name">ARGON</div>
+            </div>
+            <div class="s3-desc">Suy luận logic & code mượt mà</div>
+          </div>
+        </div>
+
+        <div id="s3-m3" class="s3-card s3-card-hydrogen">
+          <div class="s3-icon s3-icon-h2">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" fill="#38BDF8" />
+              <circle cx="12" cy="12" r="9" stroke="#38BDF8" stroke-width="2" />
+            </svg>
+          </div>
+          <div class="s3-info">
+            <div class="s3-name-row">
+              <div class="s3-name">HYDROGEN</div>
+              <div class="s3-tag">MỚI</div>
+            </div>
+            <div class="s3-desc">Model thế hệ mới vừa cập bến</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="s3-urg" class="s3-urgency">
+        <div class="s3-urg-left">Ưu đãi sắp hết rồi<br />Nhắn tin giữ slot sớm</div>
+        <div id="s3-urg-btn" class="s3-urg-cta">IB UP SỚM</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        "#s3-head",
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.34, ease: "power4.out" },
+        0.04,
+      );
+      tl.fromTo(
+        "#s3-m1",
+        { opacity: 0, x: -34, scale: 0.96 },
+        { opacity: 1, x: 0, scale: 1, duration: 0.38, ease: "back.out(1.4)" },
+        0.75,
+      );
+      tl.fromTo(
+        "#s3-m2",
+        { opacity: 0, x: -34, scale: 0.96 },
+        { opacity: 1, x: 0, scale: 1, duration: 0.38, ease: "back.out(1.4)" },
+        1.45,
+      );
+      tl.fromTo(
+        "#s3-m3",
+        { opacity: 0, x: -34, scale: 0.92 },
+        { opacity: 1, x: 0, scale: 1, duration: 0.44, ease: "back.out(1.5)" },
+        2.15,
+      );
+      tl.to(
+        "#s3-m3",
+        { boxShadow: "0 18px 44px rgba(56, 189, 248, 0.32)", duration: 0.45, ease: "power2.out" },
+        3.6,
+      );
+      tl.fromTo(
+        "#s3-urg",
+        { opacity: 0, y: 26, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.44, ease: "back.out(1.45)" },
+        5.05,
+      );
+      tl.fromTo(
+        "#s3-urg-btn",
+        { scale: 0.88 },
+        { scale: 1, duration: 0.3, ease: "back.out(1.6)" },
+        6.5,
+      );
+      tl.to(
+        "#s3-stage",
+        { opacity: 0, y: -18, duration: 0.28, ease: "power3.in" },
+        7.75,
+      );
+
+      window.__timelines["s3-models"] = tl;
+    })();
+  </script>
+</template>

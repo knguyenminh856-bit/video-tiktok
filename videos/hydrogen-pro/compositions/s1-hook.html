@@ -1,0 +1,208 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #09090b;
+      color: #fafaf9;
+      font-family: "Inter", "Montserrat", sans-serif;
+    }
+    .s1-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 460px 580px, rgba(56, 189, 248, 0.2), transparent 54%),
+        radial-gradient(circle at 260px 1040px, rgba(217, 249, 157, 0.14), transparent 50%),
+        #09090b;
+    }
+    .s1-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+    .s1-safe {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 28px;
+    }
+    .s1-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      align-self: flex-start;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.14);
+      border: 2px solid #38bdf8;
+      color: #e0f2fe;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+    }
+    .s1-title {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 74px;
+      font-weight: 900;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: #fafaf9;
+    }
+    .s1-volt {
+      color: #d9f99d;
+    }
+    .s1-cyan {
+      color: #38bdf8;
+    }
+    .s1-chip-card {
+      position: relative;
+      padding: 28px 30px;
+      border-radius: 28px;
+      background: linear-gradient(145deg, rgba(24, 24, 27, 0.96), rgba(9, 9, 11, 0.96));
+      border: 2px solid rgba(56, 189, 248, 0.45);
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      box-shadow: 0 24px 56px rgba(0, 0, 0, 0.55);
+    }
+    .s1-chip-icon {
+      width: 82px;
+      height: 82px;
+      border-radius: 22px;
+      background: rgba(56, 189, 248, 0.16);
+      border: 2px solid #38bdf8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .s1-chip-text {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .s1-chip-kicker {
+      font-size: 26px;
+      font-weight: 700;
+      color: #7dd3fc;
+      letter-spacing: 0.04em;
+    }
+    .s1-chip-main {
+      font-size: 38px;
+      font-weight: 900;
+      color: #fafaf9;
+    }
+    .s1-cta-peek {
+      padding: 24px 30px;
+      border-radius: 24px;
+      background: #d9f99d;
+      color: #09090b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 20px 50px rgba(217, 249, 157, 0.25);
+    }
+    .s1-peek-left {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .s1-peek-tag {
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: #09090b;
+      color: #d9f99d;
+      font-size: 26px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s1-hook" data-width="1080" data-height="1920">
+    <div class="s1-bg" data-layout-ignore></div>
+    <div class="s1-grid" data-layout-ignore></div>
+    <div id="s1-stage" class="s1-safe">
+      <div id="s1-badge" class="s1-pill">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z" fill="#38BDF8" />
+        </svg>
+        <span>TIN NÓNG AI MỚI</span>
+      </div>
+
+      <h1 id="s1-h1" class="s1-title">
+        GOOGLE LẠI RA<br />
+        <span class="s1-cyan">MODEL MỚI</span> <span class="s1-volt">RỒI!</span>
+      </h1>
+
+      <div id="s1-chip" class="s1-chip-card">
+        <div class="s1-chip-icon">
+          <svg id="s1-spark" width="44" height="44" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path
+              d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4L12 2z"
+              fill="#D9F99D"
+            />
+          </svg>
+        </div>
+        <div class="s1-chip-text">
+          <div class="s1-chip-kicker">ANTIGRAVITY PRO</div>
+          <div class="s1-chip-main">Neon • Argon • Hydrogen</div>
+        </div>
+      </div>
+
+      <div id="s1-peek" class="s1-cta-peek">
+        <div class="s1-peek-left">Trải nghiệm gói Pro<br />giá cực êm cho anh em</div>
+        <div class="s1-peek-tag">CHỈ TỪ 20K</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        "#s1-spark",
+        { scale: 0.85, rotation: -12 },
+        { scale: 1.08, rotation: 0, duration: 0.55, ease: "back.out(1.7)" },
+        0.1,
+      );
+      tl.fromTo(
+        "#s1-chip",
+        { y: 14 },
+        { y: 0, duration: 0.45, ease: "power4.out" },
+        0.2,
+      );
+      tl.to(
+        "#s1-badge",
+        { borderColor: "#D9F99D", duration: 0.35, ease: "power2.out" },
+        1.5,
+      );
+      tl.fromTo(
+        "#s1-peek",
+        { opacity: 0, y: 26, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.48, ease: "back.out(1.45)" },
+        3.05,
+      );
+      tl.to(
+        "#s1-stage",
+        { opacity: 0, y: -18, duration: 0.28, ease: "power3.in" },
+        5.3,
+      );
+
+      window.__timelines["s1-hook"] = tl;
+    })();
+  </script>
+</template>

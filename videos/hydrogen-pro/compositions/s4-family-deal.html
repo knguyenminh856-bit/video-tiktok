@@ -1,0 +1,190 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #f5f3ee;
+      color: #09090b;
+      font-family: "Inter", "Montserrat", sans-serif;
+    }
+    .s4-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 460px 640px, rgba(37, 99, 235, 0.1), transparent 56%),
+        #f5f3ee;
+    }
+    .s4-safe {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+    .s4-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      align-self: flex-start;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: #09090b;
+      color: #d9f99d;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    .s4-title {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 62px;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #09090b;
+    }
+    .s4-blue {
+      color: #1d4ed8;
+    }
+    .s4-price-card {
+      padding: 36px 32px;
+      border-radius: 32px;
+      background: #09090b;
+      color: #fafaf9;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 28px 64px rgba(9, 9, 11, 0.24);
+    }
+    .s4-price-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .s4-family-tag {
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 800;
+    }
+    .s4-year-tag {
+      font-size: 30px;
+      font-weight: 800;
+      color: #d9f99d;
+    }
+    .s4-hero-price {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 116px;
+      font-weight: 900;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      color: #d9f99d;
+    }
+    .s4-per {
+      font-size: 34px;
+      font-weight: 800;
+      color: #fafaf9;
+    }
+    .s4-slot-bar {
+      padding: 20px 26px;
+      border-radius: 22px;
+      background: #ffffff;
+      border: 3px solid #09090b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      font-size: 30px;
+      font-weight: 900;
+      color: #09090b;
+    }
+    .s4-slot-pill {
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: #dc2626;
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s4-family-deal" data-width="1080" data-height="1920">
+    <div class="s4-bg" data-layout-ignore></div>
+    <div id="s4-stage" class="s4-safe">
+      <div id="s4-kicker" class="s4-kicker">NGOÀI RA • DEAL CỰC RẺ</div>
+
+      <h2 id="s4-h2" class="s4-title">
+        NHẬN <span class="s4-blue">ADD FAMILY</span><br />
+        TRỌN GÓI 1 NĂM
+      </h2>
+
+      <div id="s4-card" class="s4-price-card">
+        <div class="s4-price-top">
+          <div class="s4-family-tag">GÓI FAMILY</div>
+          <div class="s4-year-tag">NGUYÊN 1 NĂM</div>
+        </div>
+        <div class="s4-hero-price">20K</div>
+        <div class="s4-per">CHỈ 20K / 1 NGƯỜI</div>
+      </div>
+
+      <div id="s4-slot" class="s4-slot-bar">
+        <span>Nhanh tay trước khi hết slot</span>
+        <span class="s4-slot-pill">SỐ LƯỢNG ÍT</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        "#s4-kicker",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" },
+        0.04,
+      );
+      tl.fromTo(
+        "#s4-h2",
+        { opacity: 0, y: 26 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power4.out" },
+        0.85,
+      );
+      tl.fromTo(
+        "#s4-card",
+        { opacity: 0, y: 34, scale: 0.88 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.48, ease: "back.out(1.45)" },
+        2.45,
+      );
+      tl.to(
+        "#s4-card",
+        { boxShadow: "0 32px 72px rgba(37, 99, 235, 0.34)", duration: 0.4, ease: "power2.out" },
+        4.1,
+      );
+      tl.fromTo(
+        "#s4-slot",
+        { opacity: 0, y: 22, scale: 0.94 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.5)" },
+        5.35,
+      );
+      tl.to(
+        "#s4-stage",
+        { opacity: 0, y: -18, duration: 0.28, ease: "power3.in" },
+        6.95,
+      );
+
+      window.__timelines["s4-family-deal"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,202 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #09090b;
+      color: #fafaf9;
+      font-family: "Inter", "Montserrat", sans-serif;
+    }
+    .s6-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 460px 700px, rgba(217, 249, 157, 0.22), transparent 54%),
+        radial-gradient(circle at 300px 1040px, rgba(56, 189, 248, 0.16), transparent 48%),
+        #09090b;
+    }
+    .s6-safe {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+    }
+    .s6-kicker {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: rgba(255, 59, 92, 0.2);
+      border: 2px solid #ff3b5c;
+      color: #ffe4e6;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    .s6-h2 {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 62px;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #fafaf9;
+    }
+    .s6-volt {
+      color: #d9f99d;
+    }
+    .s6-tiers {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .s6-tier {
+      padding: 20px 26px;
+      border-radius: 22px;
+      background: rgba(24, 24, 27, 0.94);
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .s6-tier-name {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fafaf9;
+    }
+    .s6-tier-price {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: #d9f99d;
+    }
+    .s6-tier-cyan {
+      color: #38bdf8;
+    }
+    .s6-cta-btn {
+      padding: 28px 30px;
+      border-radius: 26px;
+      background: #d9f99d;
+      color: #09090b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 24px 60px rgba(217, 249, 157, 0.34);
+    }
+    .s6-cta-text {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+    .s6-cta-badge {
+      padding: 12px 20px;
+      border-radius: 16px;
+      background: #09090b;
+      color: #d9f99d;
+      font-size: 26px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .s6-foot {
+      font-size: 28px;
+      font-weight: 700;
+      color: #d4d4d8;
+      text-align: center;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s6-cta" data-width="1080" data-height="1920">
+    <div class="s6-bg" data-layout-ignore></div>
+    <div id="s6-stage" class="s6-safe">
+      <div id="s6-kicker" class="s6-kicker">ƯU ĐÃI SẮP ĐÓNG</div>
+      <h2 id="s6-h2" class="s6-h2">
+        CHỌN GÓI NÀO?<br />
+        <span class="s6-volt">IB MÌNH NGAY!</span>
+      </h2>
+
+      <div class="s6-tiers">
+        <div id="s6-t1" class="s6-tier">
+          <div class="s6-tier-name">Pro 3 tháng</div>
+          <div class="s6-tier-price s6-tier-cyan">30K</div>
+        </div>
+        <div id="s6-t2" class="s6-tier">
+          <div class="s6-tier-name">Pro trọn 1 năm</div>
+          <div class="s6-tier-price">80K</div>
+        </div>
+        <div id="s6-t3" class="s6-tier">
+          <div class="s6-tier-name">Family 1 năm</div>
+          <div class="s6-tier-price">20K / NGƯỜI</div>
+        </div>
+      </div>
+
+      <div id="s6-btn" class="s6-cta-btn">
+        <div class="s6-cta-text">INBOX ĐỂ UP SỚM</div>
+        <div class="s6-cta-badge">NHANH TAY</div>
+      </div>
+
+      <div id="s6-foot" class="s6-foot">Neon • Argon • Hydrogen trên Antigravity</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        "#s6-kicker",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.28, ease: "power4.out" },
+        0.04,
+      );
+      tl.fromTo(
+        "#s6-h2",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.36, ease: "power4.out" },
+        0.12,
+      );
+      tl.fromTo(
+        "#s6-t1",
+        { opacity: 0, x: -28 },
+        { opacity: 1, x: 0, duration: 0.34, ease: "back.out(1.4)" },
+        0.4,
+      );
+      tl.fromTo(
+        "#s6-t2",
+        { opacity: 0, x: -28 },
+        { opacity: 1, x: 0, duration: 0.34, ease: "back.out(1.4)" },
+        1.35,
+      );
+      tl.fromTo(
+        "#s6-t3",
+        { opacity: 0, x: -28 },
+        { opacity: 1, x: 0, duration: 0.34, ease: "back.out(1.4)" },
+        2.15,
+      );
+      tl.fromTo(
+        "#s6-btn",
+        { opacity: 0, y: 28, scale: 0.88 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.48, ease: "back.out(1.5)" },
+        3.95,
+      );
+      tl.fromTo(
+        "#s6-foot",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.34, ease: "power3.out" },
+        5.65,
+      );
+
+      window.__timelines["s6-cta"] = tl;
+    })();
+  </script>
+</template>
