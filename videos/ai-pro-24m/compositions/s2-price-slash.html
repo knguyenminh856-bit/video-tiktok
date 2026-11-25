@@ -1,0 +1,239 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #09090b;
+      color: #fafaf9;
+      font-family: "Inter", "Montserrat", sans-serif;
+    }
+    .s2-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 440px 840px, rgba(217, 249, 157, 0.2), transparent 52%),
+        radial-gradient(circle at 240px 480px, rgba(255, 59, 92, 0.16), transparent 46%),
+        #09090b;
+    }
+    .s2-safe {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
+    .s2-kicker {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.22);
+      color: #e4e4e7;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+    }
+    .s2-old-box {
+      position: relative;
+      padding: 28px 32px;
+      border-radius: 26px;
+      background: rgba(24, 24, 27, 0.94);
+      border: 2px solid rgba(255, 59, 92, 0.48);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .s2-old-label {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fca5a5;
+    }
+    .s2-old-price {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 56px;
+      font-weight: 900;
+      color: #fafaf9;
+    }
+    .s2-old-sub {
+      font-size: 28px;
+      font-weight: 700;
+      color: #d4d4d8;
+    }
+    .s2-slash {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      height: 8px;
+      border-radius: 999px;
+      background: #ff3b5c;
+      transform-origin: left center;
+    }
+    .s2-slash-a {
+      top: 52%;
+      transform: rotate(-4deg) scaleX(0);
+    }
+    .s2-slash-b {
+      top: 56%;
+      transform: rotate(3deg) scaleX(0);
+    }
+    .s2-hero-wrap {
+      position: relative;
+    }
+    .s2-ring {
+      position: absolute;
+      inset: -14px;
+      border-radius: 40px;
+      border: 4px solid #d9f99d;
+      pointer-events: none;
+    }
+    .s2-card-hero {
+      position: relative;
+      padding: 34px 34px;
+      border-radius: 32px;
+      background: #d9f99d;
+      color: #09090b;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: 0 28px 64px rgba(217, 249, 157, 0.3);
+    }
+    .s2-hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .s2-hero-dur {
+      font-size: 32px;
+      font-weight: 900;
+      color: #09090b;
+    }
+    .s2-hot-badge {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #09090b;
+      color: #d9f99d;
+      font-size: 26px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .s2-price-hero {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 132px;
+      font-weight: 900;
+      line-height: 0.94;
+      letter-spacing: -0.04em;
+      color: #09090b;
+    }
+    .s2-hero-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 12px;
+      border-top: 2px solid rgba(9, 9, 11, 0.16);
+      font-size: 28px;
+      font-weight: 800;
+      color: #18181b;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s2-price-slash" data-width="1080" data-height="1920">
+    <div class="s2-bg" data-layout-ignore></div>
+    <div id="s2-stage" class="s2-safe">
+      <div id="s2-kicker" class="s2-kicker">SO SÁNH GIÁ THỰC TẾ</div>
+
+      <div id="s2-old" class="s2-old-box">
+        <div class="s2-old-label">GIÁ NIÊM YẾT 24 THÁNG</div>
+        <div class="s2-old-price">$19.99 / THÁNG</div>
+        <div class="s2-old-sub">2 năm cộng dồn gần 12 TRIỆU</div>
+        <div id="s2-s1" class="s2-slash s2-slash-a" data-layout-ignore></div>
+        <div id="s2-s2" class="s2-slash s2-slash-b" data-layout-ignore></div>
+      </div>
+
+      <div id="s2-hero-wrap" class="s2-hero-wrap">
+        <div id="s2-ring" class="s2-ring" data-layout-ignore></div>
+        <div class="s2-card-hero">
+          <div class="s2-hero-top">
+            <div class="s2-hero-dur">TRỌN GÓI 24 THÁNG</div>
+            <div id="s2-hot" class="s2-hot-badge">GIẢM &gt;99%</div>
+          </div>
+          <div class="s2-price-hero">80K</div>
+          <div class="s2-hero-foot">
+            <span>Dùng nguyên 2 năm</span>
+            <span>~3.3K / tháng</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        "#s2-kicker",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" },
+        0.04,
+      );
+      tl.fromTo(
+        "#s2-old",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.38, ease: "power4.out" },
+        0.28,
+      );
+      tl.fromTo(
+        "#s2-s1",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.28, ease: "power4.out" },
+        2.0,
+      );
+      tl.fromTo(
+        "#s2-s2",
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.28, ease: "power4.out" },
+        2.16,
+      );
+      tl.to(
+        "#s2-old",
+        { opacity: 0.52, duration: 0.3, ease: "power2.out" },
+        2.45,
+      );
+      tl.fromTo(
+        "#s2-hero-wrap",
+        { opacity: 0, y: 36, scale: 0.84 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.45)" },
+        4.75,
+      );
+      tl.fromTo(
+        "#s2-ring",
+        { opacity: 0.9, scale: 0.96 },
+        { opacity: 0, scale: 1.14, duration: 0.55, ease: "expo.out" },
+        4.82,
+      );
+      tl.fromTo(
+        "#s2-hot",
+        { opacity: 0, scale: 0.72 },
+        { opacity: 1, scale: 1, duration: 0.36, ease: "back.out(1.6)" },
+        6.1,
+      );
+      tl.to(
+        "#s2-stage",
+        { opacity: 0, y: -18, duration: 0.28, ease: "power3.in" },
+        7.55,
+      );
+
+      window.__timelines["s2-price-slash"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,206 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #09090b;
+      color: #fafaf9;
+      font-family: "Inter", "Montserrat", sans-serif;
+    }
+    .s7-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 460px 700px, rgba(217, 249, 157, 0.22), transparent 54%),
+        radial-gradient(circle at 300px 1040px, rgba(56, 189, 248, 0.16), transparent 48%),
+        #09090b;
+    }
+    .s7-safe {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 22px;
+    }
+    .s7-kicker {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: rgba(56, 189, 248, 0.18);
+      border: 2px solid #38bdf8;
+      color: #e0f2fe;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .s7-h2 {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 58px;
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: #fafaf9;
+    }
+    .s7-volt {
+      color: #d9f99d;
+    }
+    .s7-recaps {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .s7-row {
+      padding: 20px 26px;
+      border-radius: 22px;
+      background: rgba(24, 24, 27, 0.94);
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .s7-row-label {
+      font-size: 30px;
+      font-weight: 800;
+      color: #fafaf9;
+    }
+    .s7-row-val {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 34px;
+      font-weight: 900;
+      color: #d9f99d;
+      white-space: nowrap;
+    }
+    .s7-val-cyan {
+      color: #38bdf8;
+    }
+    .s7-val-red {
+      color: #ff6b81;
+    }
+    .s7-cta-btn {
+      padding: 26px 28px;
+      border-radius: 26px;
+      background: #d9f99d;
+      color: #09090b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 24px 60px rgba(217, 249, 157, 0.34);
+    }
+    .s7-cta-text {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+    .s7-cta-badge {
+      padding: 12px 18px;
+      border-radius: 16px;
+      background: #09090b;
+      color: #d9f99d;
+      font-size: 26px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .s7-foot {
+      font-size: 27px;
+      font-weight: 700;
+      color: #d4d4d8;
+      text-align: center;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s7-cta" data-width="1080" data-height="1920">
+    <div class="s7-bg" data-layout-ignore></div>
+    <div id="s7-stage" class="s7-safe">
+      <div id="s7-kicker" class="s7-kicker">DEAL 24 THÁNG • GIÁ CỰC ÊM</div>
+      <h2 id="s7-h2" class="s7-h2">
+        CHỐT FULL AI<br />
+        <span class="s7-volt">IB MÌNH NGAY!</span>
+      </h2>
+
+      <div class="s7-recaps">
+        <div id="s7-r1" class="s7-row">
+          <div class="s7-row-label">Thời hạn gói</div>
+          <div class="s7-row-val">24 THÁNG • 80K</div>
+        </div>
+        <div id="s7-r2" class="s7-row">
+          <div class="s7-row-label">Công nghệ AI</div>
+          <div class="s7-row-val s7-val-cyan">FULL 2026</div>
+        </div>
+        <div id="s7-r3" class="s7-row">
+          <div class="s7-row-label">Bảo hành</div>
+          <div class="s7-row-val s7-val-red">12 GIỜ ĐẦU</div>
+        </div>
+      </div>
+
+      <div id="s7-btn" class="s7-cta-btn">
+        <div class="s7-cta-text">INBOX LÊN ĐƠN NGAY</div>
+        <div class="s7-cta-badge">CHỐT SLOT</div>
+      </div>
+
+      <div id="s7-foot" class="s7-foot">Gemini Pro • Flow Veo 3.1 • NotebookLM Pro</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        "#s7-kicker",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.28, ease: "power4.out" },
+        0.04,
+      );
+      tl.fromTo(
+        "#s7-h2",
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.36, ease: "power4.out" },
+        0.12,
+      );
+      tl.fromTo(
+        "#s7-r1",
+        { opacity: 0, x: -28 },
+        { opacity: 1, x: 0, duration: 0.34, ease: "back.out(1.4)" },
+        0.45,
+      );
+      tl.fromTo(
+        "#s7-r2",
+        { opacity: 0, x: -28 },
+        { opacity: 1, x: 0, duration: 0.34, ease: "back.out(1.4)" },
+        1.45,
+      );
+      tl.fromTo(
+        "#s7-r3",
+        { opacity: 0, x: -28 },
+        { opacity: 1, x: 0, duration: 0.34, ease: "back.out(1.4)" },
+        2.55,
+      );
+      tl.fromTo(
+        "#s7-btn",
+        { opacity: 0, y: 28, scale: 0.88 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.48, ease: "back.out(1.5)" },
+        3.6,
+      );
+      tl.fromTo(
+        "#s7-foot",
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.34, ease: "power3.out" },
+        5.2,
+      );
+
+      window.__timelines["s7-cta"] = tl;
+    })();
+  </script>
+</template>

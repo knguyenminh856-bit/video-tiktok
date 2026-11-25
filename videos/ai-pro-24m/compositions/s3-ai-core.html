@@ -1,0 +1,183 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      background: #09090b;
+      color: #fafaf9;
+      font-family: "Inter", "Montserrat", sans-serif;
+    }
+    .s3-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 440px 580px, rgba(56, 189, 248, 0.18), transparent 54%),
+        radial-gradient(circle at 280px 980px, rgba(168, 85, 247, 0.16), transparent 50%),
+        #09090b;
+    }
+    .s3-safe {
+      position: absolute;
+      left: 120px;
+      top: 300px;
+      width: 640px;
+      height: 890px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 20px;
+    }
+    .s3-kicker {
+      display: inline-flex;
+      align-self: flex-start;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: rgba(217, 249, 157, 0.14);
+      border: 2px solid #d9f99d;
+      color: #d9f99d;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .s3-media-frame {
+      width: 640px;
+      height: 240px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 2px solid rgba(56, 189, 248, 0.45);
+      background: #09090b;
+    }
+    .s3-media-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .s3-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .s3-card {
+      padding: 24px 26px;
+      border-radius: 24px;
+      background: rgba(24, 24, 27, 0.94);
+      border: 2px solid rgba(56, 189, 248, 0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .s3-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .s3-card-title {
+      font-family: "Montserrat", "Inter", sans-serif;
+      font-size: 34px;
+      font-weight: 900;
+      color: #fafaf9;
+    }
+    .s3-tag {
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: #38bdf8;
+      color: #09090b;
+      font-size: 24px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .s3-tag-lime {
+      background: #d9f99d;
+    }
+    .s3-desc {
+      font-size: 28px;
+      font-weight: 600;
+      color: #d4d4d8;
+      line-height: 1.3;
+    }
+  </style>
+
+  <div id="root" data-composition-id="s3-ai-core" data-width="1080" data-height="1920">
+    <div class="s3-bg" data-layout-ignore></div>
+    <div id="s3-stage" class="s3-safe">
+      <div id="s3-kicker" class="s3-kicker">ƯU ĐIỂM #1 • AI MỚI NHẤT 2026</div>
+
+      <div id="s3-frame" class="s3-media-frame">
+        <img id="s3-img" class="s3-media-img" src="assets/images/img-2-deep-research.jpg" alt="Deep Research Hologram" />
+      </div>
+
+      <div class="s3-cards">
+        <div id="s3-c1" class="s3-card">
+          <div class="s3-card-top">
+            <div class="s3-card-title">GEMINI PRO MỚI NHẤT</div>
+            <div id="s3-badge1" class="s3-tag s3-tag-lime">4X LIMIT</div>
+          </div>
+          <div class="s3-desc">Hạn mức cao gấp 4 lần • xử lý ngữ cảnh siêu dài</div>
+        </div>
+
+        <div id="s3-c2" class="s3-card">
+          <div class="s3-card-top">
+            <div class="s3-card-title">DEEP RESEARCH</div>
+            <div class="s3-tag">TỰ ĐỘNG</div>
+          </div>
+          <div class="s3-desc">Tự quét hàng trăm website, tổng hợp báo cáo trong vài phút</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        "#s3-kicker",
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.3, ease: "power4.out" },
+        0.04,
+      );
+      tl.fromTo(
+        "#s3-frame",
+        { opacity: 0, scale: 0.94 },
+        { opacity: 1, scale: 1, duration: 0.44, ease: "power4.out" },
+        0.2,
+      );
+      tl.fromTo(
+        "#s3-img",
+        { scale: 1 },
+        { scale: 1.07, duration: 7.8, ease: "none" },
+        0.2,
+      );
+      tl.fromTo(
+        "#s3-c1",
+        { opacity: 0, x: -32 },
+        { opacity: 1, x: 0, duration: 0.42, ease: "back.out(1.4)" },
+        2.05,
+      );
+      tl.fromTo(
+        "#s3-c2",
+        { opacity: 0, x: -32 },
+        { opacity: 1, x: 0, duration: 0.44, ease: "back.out(1.4)" },
+        4.65,
+      );
+      tl.fromTo(
+        "#s3-badge1",
+        { scale: 0.88 },
+        { scale: 1.04, duration: 0.32, ease: "back.out(1.6)" },
+        6.4,
+      );
+      tl.to(
+        "#s3-stage",
+        { opacity: 0, y: -18, duration: 0.28, ease: "power3.in" },
+        8.05,
+      );
+
+      window.__timelines["s3-ai-core"] = tl;
+    })();
+  </script>
+</template>

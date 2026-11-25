@@ -14,4 +14,5 @@
 | Voiceover Audio | `assets/voice/v1..v7.mp3` | 7 file giọng nam `vi-VN-NamMinhNeural` (`edge-tts` +12%, normalized `-16 LUFS`) trên Lane 4 |
 | Free SFX Assets | `assets/sfx/*.mp3` | 25 cue SFX ducked dưới giọng đọc trên Lane 2 & 3 |
 | Video #2 Project | `videos/hydrogen-pro/index.html` | `39.7s` TikTok 9:16 (`1080x1920`, `30fps`): Google model mới, Pro `30K/3T` & `80K/năm` (`Neon • Argon • Hydrogen`), `Add Family 20K/người/năm` (chia 5 người) + 6 VO (`vi-VN-NamMinhNeural`) + 25 SFX |
+| Video #3 Project | `videos/ai-pro-24m/index.html` | `55.6s` TikTok 9:16 (`1080x1920`, `30fps`): Google AI Pro `24 tháng` `80K` (~3.3K/tháng), ưu điểm AI 2026 (`Gemini Pro 4x`, `Deep Research`, `Flow + Veo 3.1`, `NotebookLM Pro`, `Workspace + Dev`), nhược điểm `bảo hành 12h đầu`, 5 ảnh 3D riêng (`assets/images/*.jpg`) + 7 VO (`vi-VN-NamMinhNeural`) + 29 SFX |
 | Cloud Render CI | `.github/workflows/render.yml` | GitHub Actions (`ubuntu-latest`): auto-detect root (`.`) hoặc `videos/<slug>`, `lint`/`check`, `render`, upload chung lên Release `latest-render` |

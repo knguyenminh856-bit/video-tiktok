@@ -14,11 +14,12 @@ on:
   workflow_dispatch:
     inputs:
       project_dir:
-        description: Project directory (. for root Neon video, videos/hydrogen-pro for Hydrogen Pro video)
+        description: Project directory (. for root Neon video, videos/<slug> for other videos)
         required: false
-        default: videos/hydrogen-pro
+        default: videos/ai-pro-24m
         type: choice
         options:
+          - videos/ai-pro-24m
           - videos/hydrogen-pro
           - .
       composition:
