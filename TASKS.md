@@ -12,4 +12,4 @@
 | T16 | Build Video #2 (`videos/hydrogen-pro/`, `39.7s`, 6 VO + 25 SFX) | Done | `lint` 0/0, `check --safe-zone tiktok` 0/0 across all gates, snapshots verified |
 | T17 | Multi-video CI (`.github/workflows/render.yml`) & render `hydrogen-pro-tiktok.mp4` | Done | Run `45095615916`; `hydrogen-pro-tiktok.mp4` (`4,064,289 B`, `39.7s` `1080x1920` 30fps H.264 + AAC 48kHz `-16 LUFS`, `-1.7 dBTP`, 0 clip) |
 | T18 | Build Video #3 (`videos/ai-pro-24m/`, `55.6s`, 5 AI images, 7 VO + 29 SFX) | Done | `lint` 0/0, `check --safe-zone tiktok` 0/0 across all gates, 8 snapshots verified |
-| T19 | Render Video #3 (`ai-pro-24m-tiktok.mp4`) on GitHub Actions | In Progress | Auto-detect `videos/ai-pro-24m` -> Release `latest-render` |
+| T19 | Render Video #3 (`ai-pro-24m-tiktok.mp4`) on GitHub Actions | Done | Run `45565767307`; `ai-pro-24m-tiktok.mp4` (`11,914,245 B`, `55.6s` `1080x1920` 30fps H.264 + AAC 48kHz `-16.4 LUFS`, `-2.6 dBTP`, 0 clip) |
